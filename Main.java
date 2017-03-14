@@ -224,7 +224,7 @@ public class Main {
 							user.setMoney(user.getMoney()- bet);
 							ui.sendMessage("You doubled down, you get will one more card\nYour bet is now " + bet);
 							user.data[2] = deck.pop();
-						} else if (user.money-(bet*2)<0){
+						} else if (user.money-(bet*2)<=0){
 							ui.sendMessage("Looks liks you don't have enough money to double down, sorry");
 						}
 						break;
@@ -333,6 +333,14 @@ public class Main {
 							if(sideBet > (int)(bet/2)){
 								ui.sendMessage("Sorry, you cannot bet more than half your original bet");
 								continue;
+							}
+							if((user.getMoney()-sideBet)<0){
+								ui.sendMessage("OOPS, looks like you don't have enough money to place that insurance bet, try again");
+								continue;
+							}
+							if(user.getMoney() == 0){
+								ui.sendMessage("You have $0, you cannot place an insurance bet");
+								return 0;
 							}
 							
 						} catch (NumberFormatException e){
