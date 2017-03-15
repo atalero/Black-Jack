@@ -56,6 +56,7 @@ public class Main {
 				ui.sendMessage("You have stalled, the dealer will now play");
 				return;
 			case 1:
+				
 				user.AddCardToHand(deck.pop());
 				setHitStallPrompt(ui,user,dealer);
 				break;
@@ -218,13 +219,13 @@ public class Main {
 					case -1:
 						System.exit(0);
 					case 0:
-						if(user.money-(bet*2)>0){
+						if(user.money-(bet*2)>=0){
 							doubled = true;
 							bet = bet*2;
 							user.setMoney(user.getMoney()- bet);
 							ui.sendMessage("You doubled down, you get will one more card\nYour bet is now " + bet);
 							user.data[2] = deck.pop();
-						} else if (user.money-(bet*2)<=0){
+						} else if (user.money-(bet*2)<0){
 							ui.sendMessage("Looks liks you don't have enough money to double down, sorry");
 						}
 						break;
@@ -249,13 +250,13 @@ public class Main {
 				
 			}
 			numberOfPlays++;
-			if(numberOfPlays > 5){
+			if(numberOfPlays > 3){
 				ui.sendMessage("New deck\nReshuffling");
-				while(deck.size()!=0){
+				while(!deck.isEmpty()){
 					deck.pop();
 				}
-				CreateDeck(deck);
-				ShuffleDeck(data, deck);
+				deck = CreateDeck(deck);
+				deck = ShuffleDeck(deck);
 				numberOfPlays = 0;
 			}
 			
@@ -395,8 +396,10 @@ public class Main {
 		return bet;
 	}
 
-	private static void ShuffleDeck(Card[] data, deckOfCards<Card> deck) {
+	private static deckOfCards<Card> ShuffleDeck(deckOfCards<Card> deck) {
 
+		Card[] data = new Card[INITIAL_CAPACITY];
+		
 		while(!deck.isEmpty()){
 			int location = (int) Math.floor(((Math.random() * 52)));
 			if(data[location] == null){
@@ -416,9 +419,11 @@ public class Main {
 			deck.push(data[i]);
 		}
 		
+		return deck;
+		
 	}
 	
-	private static void CreateDeck(deckOfCards<Card> deck) {
+	private static deckOfCards<Card> CreateDeck(deckOfCards<Card> deck) {
 
 		String cardValue;
 				
@@ -437,10 +442,10 @@ public class Main {
 				}
 
 				deck.push(new Card(Suits[i], cardValue));
-				
 			}
 			
 		}
+		return deck;
 
 		
 	}
@@ -488,9 +493,8 @@ public class Main {
 
 		User_Interface ui = new GUI();
 		deckOfCards<Card> deck = new deckOfCards<Card>();
-		Card [] data = new Card[INITIAL_CAPACITY];
 		CreateDeck(deck);
-		ShuffleDeck(data,deck);
+		ShuffleDeck(deck);
 		processCommands(ui, deck);
 		
 	}
@@ -505,7 +509,7 @@ public class Main {
 				+ "insurance cannot be more than half your original bet\n\nDealer will"
 				+ " stand if the total of cards is 17 or more counting Ace as 11\n\n"
 				+ "Unfortunately, we do not allow splitting in this casino\n\nThis is"
-				+ " single-deck one-player black jack, cards get reshuffled every 5 rounds"
+				+ " single-deck one-player black jack, cards get reshuffled every 4 rounds"
 				+ " (you will be notified) \n\nYou bust, you lose immediately and the"
 				+ " dealer doesn’t play\n\nYou start with $5000\n\nYou can withdraw "
 				+ "at the start of any round and leave with your money, but you cant quit in the middle of a round\n\nYou reach $0, "
