@@ -68,8 +68,10 @@ public class Main {
 		displayCardsNoHole(user, dealer, ui);
 	}
 	
-	private static void dealerPlays(Player dealer, deckOfCards<Card> deck, Player user, User_Interface ui) {
-		//This simple algorithm is the one by which dealer's at most casinos play, the dealer never makes 
+	private static void dealerPlays(Player dealer, deckOfCards<Card> deck, Player 
+			user, User_Interface ui) {
+		//This simple algorithm is the one by which dealer's at most casinos play,
+		//the dealer never makes 
 		//decisions
 		boolean dealerHit = false;
 		
@@ -88,11 +90,13 @@ public class Main {
 	
 	private static void displayCardsDealerPlays(Player user, Player dealer, User_Interface ui) {
 		///Display the cards when the dealer is playing
-		ui.sendMessage("Dealer Now Playing\n\nDealer's cards:\n" + dealer.data[0] + "\n" + dealer.data[1] + 
+		ui.sendMessage("Dealer Now Playing\n\nDealer's cards:\n" + dealer.data[0] + 
+				"\n" + dealer.data[1] + 
 				"\n" + dealer.data[2] +
 				"\n" + dealer.data[3] + "\n" + dealer.data[4] + "\n" + dealer.data[5]+
 				"\n\nYour cards:\n" + 
-				user.data[0] + "\n" + user.data[1] + "\n" + user.data[2] + "\n" + user.data[3] + "\n" + 
+				user.data[0] + "\n" + user.data[1] + "\n" + user.data[2] +
+				"\n" + user.data[3] + "\n" + 
 				user.data[4] + "\n" + user.data[5]);
 	}
 	
@@ -123,12 +127,14 @@ public class Main {
 		//Dealer and Player have naturals
 		if (checkNaturals == true && checkNaturals2 == true){
 			user.setMoney(user.getMoney()+ bet);
-			ui.sendMessage("Looks like you both have naturals!, Let's deal the cards again\nYou get your bet back"
+			ui.sendMessage("Looks like you both have naturals!, Let's deal the"
+					+ " cards again\nYou get your bet back"
 					+ "\nYou now have " + user.getMoney());
 			
 			if(insurance != 0){
 				user.setMoney(user.getMoney() + (insurance*2));
-				ui.sendMessage("Fortunately, you bought insurance, you will get paid back twice "
+				ui.sendMessage("Fortunately, you bought insurance, you will get "
+						+ "paid back twice "
 						+ "your insurance.\n You now have $"
 						+ user.money);
 			}
@@ -141,7 +147,8 @@ public class Main {
 		//Only the player has a natural
 		if (checkNaturals == true && checkNaturals2 == false){
 			user.setMoney(user.getMoney()+ (int)(2.5*bet));	
-			ui.sendMessage("Congrats, dealer pays 1.5 times you bet\n You now have $" + user.getMoney());
+			ui.sendMessage("Congrats, dealer pays 1.5 times you bet\n You now have $" +
+			user.getMoney());
 			displayCardsNoHole(user, dealer, ui);
 			dealAgain(user, dealer, deck);
 			return false;
@@ -149,11 +156,13 @@ public class Main {
 		
 		//Only the dealer has a natural
 		if (checkNaturals == false && checkNaturals2 == true){	
-			ui.sendMessage("Oh no, the dealer has a natural and you don't\n You now have $" + user.getMoney());
+			ui.sendMessage("Oh no, the dealer has a natural and you don't\n You now have $" 
+		+ user.getMoney());
 			
 			if(insurance != 0){
 				user.setMoney(user.getMoney() + (insurance*2));
-				ui.sendMessage("Fortunately, you bought insurance, you will get paid back twice your insurance.\n"
+				ui.sendMessage("Fortunately, you bought insurance, you will get paid back "
+						+ "twice your insurance.\n"
 						+ " You now have $"
 						+ user.money);
 			}
@@ -170,10 +179,12 @@ public class Main {
 	
 	private static void displayCardsNoHole(Player user, Player dealer, User_Interface ui) {
 		//Display the cards without hiding the dealer's second card
-		ui.sendMessage("Dealer's cards:\n" + dealer.data[0] + "\n" + dealer.data[1] + "\n" + dealer.data[2] +
+		ui.sendMessage("Dealer's cards:\n" + dealer.data[0] + "\n" + dealer.data[1] + "\n" 
+				+ dealer.data[2] +
 				"\n" + dealer.data[3] + "\n" + dealer.data[4] + "\n" + dealer.data[5]+
 				"\n\nYour cards:\n" + 
-				user.data[0] + "\n" + user.data[1] + "\n" + user.data[2] + "\n" + user.data[3] + "\n" + 
+				user.data[0] + "\n" + user.data[1] + "\n" + user.data[2] + "\n" + user.data[3] 
+				+ "\n" + 
 				user.data[4] + "\n" + user.data[5]);
 	}
 
@@ -203,11 +214,13 @@ public class Main {
 				
 				//Dealer checks for black jack every time face up card value is J, Q, K, 10, or Ace
 				if(dealer.data[0].valueAceIs1() == 10 || dealer.data[0].valueAceIs1() == 1){
-					ui.sendMessage("The dealer's face up card is " + dealer.data[0] + ". Dealer will now check"
+					ui.sendMessage("The dealer's face up card is " + dealer.data[0] + ". Dealer will "
+							+ "now check"
 							+ " for Black Jack");
 				}
 				
-				if(compareNaturals(checkNaturals(user),checkNaturals(dealer), user, dealer, bet, ui, deck, insurance)){
+				if(compareNaturals(checkNaturals(user),checkNaturals(dealer), user, dealer, bet, ui,
+						deck, insurance)){
 				//displayCards(user, dealer, ui);
 					
 					if(insurance != 0){
@@ -220,7 +233,8 @@ public class Main {
 */					
 					//If a double is possible
 					if (user.sumAceIs1() == 9 || user.sumAceIs1() == 10 || user.sumAceIs1() == 11){
-						ui.setPrompt("The sum of you cards is " + user.sumAceIs1() +"!\nYou can double down. "
+						ui.setPrompt("The sum of you cards is " + user.sumAceIs1() +"!\nYou "
+								+ "can double down. "
 								+ " Would you like to? (Current bet is " + bet + ")");
 					String[] commands = {
 							"Yes",
@@ -235,10 +249,12 @@ public class Main {
 							doubled = true;
 							bet = bet*2;
 							user.setMoney(user.getMoney()- bet);
-							ui.sendMessage("You doubled down, you get will one more card\nYour bet is now " + bet);
+							ui.sendMessage("You doubled down, you get will one more card\nYour bet"
+									+ " is now " + bet);
 							user.data[2] = deck.pop();
 						} else if (user.money-(bet*2)<0){
-							ui.sendMessage("Looks liks you don't have enough money to double down, sorry");
+							ui.sendMessage("Looks liks you don't have enough money to double down,"
+									+ " sorry");
 						}
 						break;
 					case 1:
@@ -255,7 +271,8 @@ public class Main {
 				if(user.sumAceIs1() <= 21){
 					dealerPlays(dealer,deck,user, ui);
 					
-					decideWinner(calculateSum(user, ui, false),calculateSum(dealer, ui, true),ui, user, dealer, bet);
+					decideWinner(calculateSum(user, ui, false),calculateSum(dealer, ui, true)
+							,ui, user, dealer, bet);
 				}								
 			}
 			//Reshuffle the cards every three rounds and reset the count for numberOfPlays
@@ -305,7 +322,8 @@ public class Main {
 		//In the case that an insurance bet it possible, this method is called
 		//The user must enter a valid insurance bet, otherwise the game will send a message to the user
 		//reporting an error
-		ui.setPrompt("The dealer's face up card is " + dealer.data[0] + ". Would you like to buy insurance?\n"
+		ui.setPrompt("The dealer's face up card is " + dealer.data[0] + ". Would you like to"
+				+ " buy insurance?\n"
 				+ "Insurance can only be up to half your bet, your current bet is $" + bet);
 		int sideBet = 0;
 		
@@ -324,7 +342,8 @@ public class Main {
 			
 				while(valid == false){
 						try{
-							String getBet = ui.getInfo("How much money on your insurance (min is $2 "
+							String getBet = ui.getInfo("How much money on your insurance "
+									+ "(min is $2 "
 									+ "and max is half your bet)?\nYour current bet is"
 									+ " $" + bet);
 							if(getBet == null){
@@ -337,7 +356,8 @@ public class Main {
 							}
 							sideBet = Integer.parseInt(getBet);
 							if(user.money < sideBet){
-								ui.sendMessage("You do not have enough money to place that bet, try again");
+								ui.sendMessage("You do not have enough money to place that bet,"
+										+ " try again");
 								continue;
 							}
 							if(sideBet < 2){
@@ -346,7 +366,8 @@ public class Main {
 							}
 							
 							if(sideBet > (int)(bet/2)){
-								ui.sendMessage("Sorry, you cannot bet more than half your original bet");
+								ui.sendMessage("Sorry, you cannot bet more than half your"
+										+ " original bet");
 								continue;
 							}
 							if((user.getMoney()-sideBet)<0){
@@ -381,7 +402,8 @@ public class Main {
 		
 		while(valid == false){
 				try{
-					String getBet = ui.getInfo("How much would you like to bet on this hand (min is $2)?\nYou"
+					String getBet = ui.getInfo("How much would you like to bet on this"
+							+ " hand (min is $2)?\nYou"
 							+ " currently have $" + user.money + 
 							"\n\n		Cancel or hit the Red X to withdraw");
 					if(getBet == null){
