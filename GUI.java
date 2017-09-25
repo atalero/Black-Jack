@@ -1,3 +1,5 @@
+//GUI was written by Dr. Victor Milenkovic from the University of Miami. Original comments are still in code. Some changes were made to adapt the GUI to the Black Jack game. 
+//The GUI interface in this folder is also written by Dr. Victor Milenkovic. 
 package black_jack;
 
 import java.lang.reflect.InvocationTargetException;
